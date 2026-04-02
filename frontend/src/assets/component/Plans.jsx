@@ -48,7 +48,8 @@ function Plans() {
     try {
 
       const { data } = await axios.post(
-        "http://localhost:5000/api/payment/create",
+        // "http://localhost:5000/api/payment/create",
+        "https://your-backend.onrender.com/api/payment/create",
         { amount: amount * 100 }
       );
 
