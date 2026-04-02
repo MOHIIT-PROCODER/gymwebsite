@@ -19,7 +19,10 @@ const authRoutes = require("./routes/authRoutes");
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: "https://gymwebsite-h7dw.onrender.com",
+  credentials: true
+}));
 app.use(express.json());
 
 // API Routes

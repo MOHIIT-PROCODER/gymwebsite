@@ -43,55 +43,100 @@ function Plans() {
     }
   ];
 
-  const choosePlan = async (plan, type, amount) => {
+  // const choosePlan = async (plan, type, amount) => {
 
-    try {
+  //   try {
 
-      const { data } = await axios.post(
-        "http://localhost:5000/api/payment/create",
-        { amount: amount * 100 }
-      );
+  //     const { data } = await axios.post(
+  //       "http://localhost:5000/api/payment/create",
+  //       { amount: amount * 100 }
+  //     );
 
-      const options = {
-        key: "rzp_test_SNB6oJE0JEnxv2",
-        amount: data.amount,
-        currency: data.currency,
-        order_id: data.id,
-        name: "Fitips Gym",
-        description: `${plan} ${type} Plan`,
+  //     const options = {
+  //       key: "rzp_test_SNB6oJE0JEnxv2",
+  //       amount: data.amount,
+  //       currency: data.currency,
+  //       order_id: data.id,
+  //       name: "Fitips Gym",
+  //       description: `${plan} ${type} Plan`,
 
-        handler: async function (response) {
+  //       handler: async function (response) {
 
-          const user = JSON.parse(localStorage.getItem("user"));
+  //         const user = JSON.parse(localStorage.getItem("user"));
 
-          await axios.post(
-            "http://localhost:5000/api/payment/success",
-            {
-              name: user.name,
-              email: user.email,
-              phone: user.phone,
-              planName: plan,
-              planType: type,
-              paymentId: response.razorpay_payment_id
-            }
-          );
+  //         await axios.post(
+  //           "http://localhost:5000/api/payment/success",
+  //           {
+  //             name: user.name,
+  //             email: user.email,
+  //             phone: user.phone,
+  //             planName: plan,
+  //             planType: type,
+  //             paymentId: response.razorpay_payment_id
+  //           }
+  //         );
 
-          alert("Payment Successful");
+  //         alert("Payment Successful");
 
-        }
-      };
+  //       }
+  //     };
 
-      const rzp = new window.Razorpay(options);
-      rzp.open();
+  //     const rzp = new window.Razorpay(options);
+  //     rzp.open();
 
-    } catch (error) {
+  //   } catch (error) {
 
-      alert("Payment Failed");
+  //     alert("Payment Failed");
 
-    }
+  //   }
 
-  };
+  // };
+  
 
+  const API_URL = "https://gymwebsite-h7dw.onrender.com";
+
+const choosePlan = async (plan, type, amount) => {
+  try {
+    const { data } = await axios.post(
+      `${API_URL}/api/payment/create`,
+      { amount: amount * 100 }
+    );
+
+    const options = {
+      key: "rzp_test_SNB6oJE0JEnxv2",
+      amount: data.amount,
+      currency: data.currency,
+      order_id: data.id,
+      name: "Fitips Gym",
+      description: `${plan} ${type} Plan`,
+
+      handler: async function (response) {
+        const user = JSON.parse(localStorage.getItem("user"));
+
+        await axios.post(
+          `${API_URL}/api/payment/success`,
+          {
+            name: user.name,
+            email: user.email,
+            phone: user.phone,
+            planName: plan,
+            planType: type,
+            paymentId: response.razorpay_payment_id
+          }
+        );
+
+        alert("Payment Successful");
+      }
+    };
+
+    const rzp = new window.Razorpay(options);
+    rzp.open();
+
+  } catch (error) {
+    alert("Payment Failed");
+    console.error(error);
+  }
+};
   return (
 
     <div className="bg-[#0d0d0d] text-white min-h-screen py-20 px-6 md:px-20">
