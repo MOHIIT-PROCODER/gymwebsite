@@ -9,55 +9,32 @@ function Register() {
   const [password,setPassword] = useState("");
   const [address,setAddress] = useState("");
   const [bloodGroup,setBloodGroup] = useState("");
- // const registerUser = async () => {
+  const registerUser = async () => {
 
-  //   try {
+    try {
 
-  //     await axios.post(
-  //       "http://localhost:5000/api/auth/register",
-  //       {
-  //         name,
-  //         email,
-  //         phone,
-  //         password,
-  //         address,
-  //         bloodGroup
-  //       }
-  //     );
+      await axios.post(
+        "http://localhost:5000/api/auth/register",
+        {
+          name,
+          email,
+          phone,
+          password,
+          address,
+          bloodGroup
+        }
+      );
 
-  //     alert("Registration Successful");
+      alert("Registration Successful");
 
-  //   } catch (err) {
+    } catch (err) {
 
-  //     alert("Registration Failed");
+      alert("Registration Failed");
 
-  //   }
+    }
 
-  // };
+  };
 
-
-    const API_URL = "https://your-backend.onrender.com"; 
-const registerUser = async () => {
-  try {
-    await axios.post(
-      `${API_URL}/api/auth/register`,
-      {
-        name,
-        email,
-        phone,
-        password,
-        address,
-        bloodGroup
-      }
-    );
-
-    alert("Registration Successful");
-
-  } catch (err) {
-    console.error(err);
-    alert("Registration Failed");
-  }
-};
 
   return (
 
